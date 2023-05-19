@@ -20,8 +20,7 @@ pipeline {
 										}
 										steps {
 											sh "sudo rm -rf /mnt/slave1/*"
-											sh "sudo yum install git -y"
-                                            sh "sudo git clone -b 23Q1 https://github.com/santosh1194/practice.git"
+											sh "sudo git clone -b 23Q1 https://github.com/santosh1194/practice.git"
 											sh "sudo chmod -R 777 /mnt/slave1/practice/index.html"
 											sh "sudo yum install docker -y"
 											sh "sudo service docker restart"

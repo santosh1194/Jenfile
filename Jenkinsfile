@@ -13,22 +13,18 @@ pipeline {
 
                                 stage ("slave 1") {
                                         agent {
-											label {
-												label "dev"
-												customWorkspace "/mnt/slave1/"
+						label {
+							label "dev"
+							customWorkspace "/mnt/slave1/"
 											}
 										}
 										steps {
-											sh "rm -rf /mnt/slave1/*"
-                                                         				sh "git clone -b 23Q1 https://github.com/santosh1194/practice.git"
-											sh "sudo chmod -R 777 /mnt/slave1/practice/index.html"
-											sh "sudo yum install docker -y"
-											sh "sudo service docker restart"
-											sh "sudo docker system prune -a -f"
-											sh "sudo docker run -itdp 70:80 --name 23Q1 httpd"
-											sh "sudo docker cp /mnt/slave1/practice/index.html 
-
-23Q1:/usr/local/apache2/htdocs/"
+											sh "rm -rf /mnt/slave1/*"                      				sh "git clone -b 23Q1 https://github.com/santosh1194/practice.git" 						sh "sudo chmod -R 777 /mnt/slave1/practice/index.html"
+						sh "sudo yum install docker -y"
+						sh "sudo service docker restart"
+						sh "sudo docker system prune -a -f"
+				 		sh "sudo docker run -itdp 70:80 --name 23Q1 httpd"
+                             sh "sudo docker cp /mnt/slave1/practice/index.html 23Q1:/usr/local/apache2/htdocs/"
                                         }
                                 }
 								

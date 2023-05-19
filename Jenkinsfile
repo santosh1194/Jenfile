@@ -43,9 +43,7 @@ pipeline {
 											sh "sudo service docker restart"
 											sh "sudo docker system prune -a -f"
 											sh "sudo docker run -itdp 70:80 --name 23Q2 httpd"
-											sh "sudo docker cp /mnt/slave2/practice/index.html 
-
-23Q2:/usr/local/apache2/htdocs/"
+						                                        sh "sudo docker cp /mnt/slave2/practice/index.html 23Q2:/usr/local/apache2/htdocs/"
                                         }
                                 }
 								
@@ -64,9 +62,7 @@ pipeline {
 											sh "sudo service docker restart"
 											sh "sudo docker system prune -a -f"
 											sh "sudo docker run -itdp 70:80 --name 23Q3 httpd"
-											sh "sudo docker cp /mnt/slave3/practice/index.html 
-
-23Q3:/usr/local/apache2/htdocs/"
+											sh "sudo docker cp /mnt/slave3/practice/index.html 23Q3:/usr/local/apache2/htdocs/"
                                         }
                                 }
                         								

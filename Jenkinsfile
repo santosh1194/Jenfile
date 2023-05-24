@@ -44,33 +44,16 @@ pipeline {
 											sh "sudo yum install docker -y"
 											sh "sudo service docker restart"
 											sh "sudo docker system prune -a -f"
-											sh "sudo docker run -itdp 70:80 --name 23Q2 httpd"
+											sh "sudo docker run -itdp 80:80 --name 23Q2 httpd"
 											sh "sudo docker cp /mnt/slave2/practice/index.html 23Q2:/usr/local/apache2/htdocs/"
                                         }
                                 }
 								
-								stage ("slave 3") {
-                                        agent {
-											label {
-												label "uat"
-												customWorkspace "/mnt/slave3/"
-											}
-										}
-										steps {
-											sh "rm -rf /mnt/slave3/*"
-                                            sh "git clone -b 23Q3 https://github.com/santosh1194/practice.git"
-											sh "sudo chmod -R 777 /mnt/slave3/practice/index.html"
-											sh "sudo yum install docker -y"
-											sh "sudo service docker restart"
-											sh "sudo docker system prune -a -f"
-											sh "sudo docker run -itdp 70:80 --name 23Q3 httpd"
-											sh "sudo docker cp /mnt/slave3/practice/index.html 23Q3:/usr/local/apache2/htdocs/"
-                                        }
-                                }
+								
                         								
 											
 												
-						}
+	}
                 }
         }
 }

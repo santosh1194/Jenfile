@@ -29,19 +29,19 @@ pipeline {
 				
 					steps {
 						dir ("/mnt/"){
-								sh "rm -rf /mnt/compose-dir/*"
-								sh "git clone ${composeurl}"
-								sh "chmod -R 777 /mnt/compose-dir/compose-file/docker-compose.yml"
+								sh "sudo rm -rf /mnt/compose-dir/*"
+								sh "sudo git clone ${composeurl}"
+								sh "sudo chmod -R 777 /mnt/compose-dir/compose-file/docker-compose.yml"
 						}
 						dir ("/mnt/wars"){
-								sh "rm -rf /mnt/wars/*"
-								sh "wget ${warurl}"
-								sh "chmod -R 777 /mnt/wars/sample.war"
+								sh "sudo rm -rf /mnt/wars/*"
+								sh "sudo wget ${warurl}"
+								sh "sudo chmod -R 777 /mnt/wars/sample.war"
 						}
 						dir ("/mnt/webpage"){
-								sh "rm -rf /mnt/webpage/*"
-								sh "git clone ${indexurl}"
-								sh "chmod -R 777 /mnt/webpage/index-file/index.html"
+								sh "sudo rm -rf /mnt/webpage/*"
+								sh "sudo git clone ${indexurl}"
+								sh "sudo chmod -R 777 /mnt/webpage/index-file/index.html"
 						}
 					
 					sh "cd /mnt/compose-dir/ && sudo docker-compose up -d"
@@ -60,19 +60,19 @@ pipeline {
 				
 					steps {
 						dir ("/mnt/"){
-								sh "rm -rf /mnt/compose-dir/*"
-								sh "git clone ${composeurl}"
-								sh "chmod -R 777 /mnt/compose-dir/compose-file/docker-compose.yml"
+								sh "sudo rm -rf /mnt/compose-dir/*"
+								sh "sudo git clone ${composeurl}"
+								sh "sudo chmod -R 777 /mnt/compose-dir/compose-file/docker-compose.yml"
 						}
 						dir ("/mnt/wars"){
-								sh "rm -rf /mnt/wars/*"
-								sh "wget ${warurl}"
-								sh "chmod -R 777 /mnt/wars/sample.war"
+								sh "sudo rm -rf /mnt/wars/*"
+								sh "sudo wget ${warurl}"
+								sh "sudo chmod -R 777 /mnt/wars/sample.war"
 						}
 						dir ("/mnt/webpage"){
-								sh "rm -rf /mnt/webpage/*"
-								sh "git clone ${indexurl}"
-								sh "chmod -R 777 /mnt/webpage/index-file/index.html"
+								sh "sudo rm -rf /mnt/webpage/*"
+								sh "sudo git clone ${indexurl}"
+								sh "sudo chmod -R 777 /mnt/webpage/index-file/index.html"
 						}
 					
 					sh "cd /mnt/compose-dir/ && sudo docker-compose up -d"

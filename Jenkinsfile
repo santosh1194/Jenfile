@@ -1,78 +1,85 @@
 pipeline {
-        agent {
-                label {
-                        label "built-in"
-                        customWorkspace "/mnt/job/"
-                }
-        }
+	agent {
+		label {
+			label "built-in"
+			customWorkspace "/mnt/practical"
+		}
+	}
+	
+	environment {
+						
+				composeurl = "https://github.com/santosh1194/compose-file.git"
+				warurl = "https://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war"
+				indexurl ="https://github.com/santosh1194/index-file.git"
+		}
 
-        stages {
-                stage ("parallel stages") {
+	stages {
+		
+		stage ("parallel stages") {
 
-                        parallel {
-
-                                stage ("slave 1") {
-                                        agent {
-											label {
-												label "dev"
-												customWorkspace "/mnt/data/"
-											}
-										}
-										steps {
-											sh "sudo rm -rf /mnt/data/*"
-											sh "sudo chmod -R 777 /mnt/data"
-											sh "sudo git clone -b 23Q1 https://github.com/santosh1194/practice.git"
-											sh "sudo chmod -R 777 /mnt/data/practice/index.html"
-											sh "sudo yum install docker -y"
-											sh "sudo service docker restart"
-											sh "sudo docker system prune -a -f"
-											sh "sudo docker run -itdp 70:80 -v /mnt/data/practice:/usr/local/apache2/htdocs/ --name 23Q1 httpd"
-										}
-                                }
-								
-								stage ("slave 2") {
-                                                    			    agent {
-											label {
-												label "qa"
-												customWorkspace "/mnt/data/"
-											}
-										}
-										steps {
-											sh "rm -rf /mnt/data/*"
-											sh "sudo chmod -R 777 /mnt/data"
-                                                                                        sh "git clone -b 23Q2 https://github.com/santosh1194/practice.git"
-											sh "sudo chmod -R 777 /mnt/data/practice/index.html"
-											sh "sudo yum install docker -y"
-											sh "sudo service docker restart"
-											sh "sudo docker system prune -a -f"
-											sh "sudo docker run -itdp 80:80 -v /mnt/data/practice:/usr/local/apache2/htdocs/ --name 23Q2 httpd"
-										}
-                                }
-								
-							/*	stage ("slave 3") {
-                                                                            agent {
-											label {
-												label "uat"
-												customWorkspace "/mnt/data/"
-											}
-										}
-										steps {
-											sh "rm -rf /mnt/data/*"
-											sh "sudo chmod -R 777 /mnt/data"
-                                                                                        sh "git clone -b 23Q3 https://github.com/santosh1194/practice.git"
-											sh "sudo chmod -R 777 /mnt/data/practice/index.html"
-											sh "sudo yum install docker -y"
-											sh "sudo service docker restart"
-											sh "sudo docker system prune -a -f"
-											sh "sudo docker run -itdp 90:80 --name 23Q3 httpd"
-											sh "sudo docker cp /mnt/data/practice/index.html 23Q3:/usr/local/apache2/htdocs/"
-                                        }
-                                }
-							*/
-
-                        								
-											
+            parallel {
+						
+				stage ("dev-deployment") {
+					agent {
+							label {
+								label "dev"
+								customWorkspace "/mnt/project/"
+							}
+					}
+				
+					steps {
+						dir ("/mnt/"){
+								sh "rm -rf /mnt/compose-dir/*"
+								sh "git clone ${composeurl}"
+								sh "chmod -R 777 /mnt/compose-dir/compose-file/docker-compose.yml"
 						}
-                }
-        }
+						dir ("/mnt/wars"){
+								sh "rm -rf /mnt/wars/*"
+								sh "wget ${warurl}"
+								sh "chmod -R 777 /mnt/wars/sample.war"
+						}
+						dir ("/mnt/webpage"){
+								sh "rm -rf /mnt/webpage/*"
+								sh "git clone ${indexurl}"
+								sh "chmod -R 777 /mnt/webpage/index-file/index.html"
+						}
+					
+					sh "cd /mnt/compose-dir/ && sudo docker-compose up -d"
+					
+					}
+				}
+				
+				
+				stage ("qa-deployment") {
+					agent {
+							label {
+								label "qa"
+								customWorkspace "/mnt/project/"
+							}
+					}
+				
+					steps {
+						dir ("/mnt/"){
+								sh "rm -rf /mnt/compose-dir/*"
+								sh "git clone ${composeurl}"
+								sh "chmod -R 777 /mnt/compose-dir/compose-file/docker-compose.yml"
+						}
+						dir ("/mnt/wars"){
+								sh "rm -rf /mnt/wars/*"
+								sh "wget ${warurl}"
+								sh "chmod -R 777 /mnt/wars/sample.war"
+						}
+						dir ("/mnt/webpage"){
+								sh "rm -rf /mnt/webpage/*"
+								sh "git clone ${indexurl}"
+								sh "chmod -R 777 /mnt/webpage/index-file/index.html"
+						}
+					
+					sh "cd /mnt/compose-dir/ && sudo docker-compose up -d"
+					}
+				}
+			}
+			
+		}
+	}
 }

@@ -6,13 +6,6 @@ pipeline {
 		}
 	}
 	
-	environment {
-						
-				composeurl = "https://github.com/santosh1194/compose-file.git"
-				warurl = "https://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war"
-				indexurl = "https://github.com/santosh1194/index-file.git"
-		}
-
 	stages {
 		
 		stage ("parallel stages") {
@@ -26,6 +19,12 @@ pipeline {
 								customWorkspace "/mnt/project/"
 							}
 					}
+					environment {
+						
+				composeurl = "https://github.com/santosh1194/compose-file.git"
+				warurl = "https://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war"
+				indexurl = "https://github.com/santosh1194/index-file.git"
+		}
 				
 					steps {
 						dir ("/mnt/"){
@@ -57,6 +56,12 @@ pipeline {
 								customWorkspace "/mnt/project/"
 							}
 					}
+					environment {
+						
+				composeurl = "https://github.com/santosh1194/compose-file.git"
+				warurl = "https://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war"
+				indexurl = "https://github.com/santosh1194/index-file.git"
+		}
 				
 					steps {
 						dir ("/mnt/"){

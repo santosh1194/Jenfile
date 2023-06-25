@@ -43,7 +43,7 @@ pipeline {
 								sh "sudo chmod -R 777 /mnt/webpage/index-file/index.html"
 						}
 					
-					sh "sudo cd /mnt/compose-dir/ && sudo docker-compose up -d"
+					sh "sudo cd /mnt/compose-dir/compose-file/ && sudo docker-compose up -d"
 					
 					}
 				}
@@ -74,7 +74,7 @@ pipeline {
 								sh "sudo chmod -R 777 /mnt/webpage/index-file/index.html"
 						}
 					
-					sh "sudo cd /mnt/compose-dir/ && sudo docker-compose up -d"
+					sh "sudo cd /mnt/compose-dir/compose-file/ && sudo docker-compose up -d"
 					}
 				}
 			}
